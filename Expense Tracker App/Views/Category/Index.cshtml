@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Expense_Tracker_App.Models.Category>
+
+@{
+    ViewData["PageTitle"] = "Categories";
+    ViewData["PageActionText"] = "+ New Category";
+    ViewData["PageActionUrl"] = "/Category/AddOrEdit";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <ejs-grid id="categories" dataSource="@Model" gridLines="None" allowSorting="true" allowPaging="true">
+            <e-grid-pagesettings pagesize="5"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column headertext="Category" field="TitleAndIcon"></e-grid-column>
+                <e-grid-column headertext="Type" template="#typeCol" width="150px"></e-grid-column>
+                <e-grid-column headertext="Actions" template="#actionsCol" width="150px"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+    <div class="col-md-4">
+        <div class="widget h-100 d-flex justify-content-center align-items-center" style="background-color:darkslategrey">
+            <i class="fa-solid fa-shapes fa-2xl"></i>
+        </div>
+    </div>
+</div>
+
+<script id="typeCol" type="text/x-template">
+    ${if(type=="Income")}
+        <span class="badge bg-success">${type}</span>
+    ${else}
+         <span class="badge bg-danger">${type}</span>
+    ${/if}
+</script>
+
+<script id="actionsCol" type="text/x-template">
+    <div class="d-flex flex-row justify-content-start">
+        <a class="btn btn-sm no-a-decoration" href="/Category/AddOrEdit/${CategoryId}">
+            <i class="fa-solid fa-pen fa-lg"></i>
+        </a>
+        <form action="/Category/Delete/${CategoryId}" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-sm btn-link no-a-decoration" onclick="return confirm(&quot;Are you sure?&quot;)">
+                <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
+            </button>
+        </form>
+    </div>
+</script>

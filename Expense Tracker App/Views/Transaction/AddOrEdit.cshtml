@@ -1,0 +1,48 @@
+﻿@model Expense_Tracker_App.Models.Transaction
+
+@{
+    ViewData["PageTitle"] = Model.TransactionId == 0 ? "Create new transaction" : "Edit Transaction";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="widget p-5">
+            <form asp-action="AddOrEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="TransactionId" value="@Model.TransactionId" />
+                <div class="mb-3">
+                    <ejs-datepicker id="date" placeholder="Date" ejs-for="TransactionDate" floatLabelType="Always" format="MMM-dd-yy"></ejs-datepicker>
+                    <span asp-validation-for="TransactionDate" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-dropdownlist id="ddlCategory" ejs-for="CategoryId" placeholder="Category" floatLabelType="Always" dataSource="@ViewBag.Categories" allowFiltering="true" ignoreAccent="true" filterType="Contains">
+                        <e-dropdownlist-fields value="CategoryId" text="TitleAndIcon"></e-dropdownlist-fields>
+                    </ejs-dropdownlist>
+                </div>
+                <div class="mb-3">
+                    <ejs-numerictextbox id="amount" ejs-for="Amount" floatLabelType="Always" placeholder="Amount" min="0" format="C"></ejs-numerictextbox>
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="description" placeholder="Description" ejs-for="Description" multiline="true" floatLabelType="Always"></ejs-textbox>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <ejs-button id="submit" typeof="submit" content="Submit" cssClass="e-success"></ejs-button>
+
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="widget h-100 d-flex justify-content-center align-items-center" style="background-color:darkslategrey">
+            <i class="fa-solid fa-money-bill-transfer fa-2xl"></i>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

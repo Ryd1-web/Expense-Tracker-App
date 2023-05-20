@@ -2,13 +2,59 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+	List<Object> sidebarMenu = new List<Object>();
+
+	sidebarMenu.Add(new
+	{
+		text = "General",
+		separator = true,
+	});
+
+	sidebarMenu.Add(new
+	{
+		text = "Dashboard",
+		url = "/",
+		iconCss = "fa-solid fa-box"
+	});
+
+	sidebarMenu.Add(new
+	{
+		text = "Category",
+		url = "/Category",
+		iconCss = "fa-solid fa-folder-closed"
+	});
+
+	sidebarMenu.Add(new
+	{
+		text = "Transaction",
+		url = "/Transaction",
+		iconCss = "fa-solid fa-arrow-right-arrow-left"
+	});
+
+	sidebarMenu.Add(new
+	{
+		text = "User Settings",
+		separator = true,
+	});
+
+	sidebarMenu.Add(new
+	{
+		text = "User profiling",
+		//url = "/Transaction",
+		iconCss = "fa-solid fa-user"
+	});
+
 }
 
 
-<ejs-sidebar id="sidebar" width="300px">
+<ejs-sidebar id="sidebar" width="300px" enableDock>
 	<e-content-template>
 		<div class="title-header">
 			<div style="display:inline-block"> Expense Tracker </div>
 		</div>
+
+		<ejs-menu id="menu" items="sidebarMenu" orientation="Vertical">
+
+		</ejs-menu>
 	</e-content-template>
 </ejs-sidebar>

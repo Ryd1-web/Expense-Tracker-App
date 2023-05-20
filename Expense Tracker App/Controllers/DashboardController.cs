@@ -35,6 +35,13 @@ namespace Expense_Tracker_App.Controllers
             int Balance = TotalIncome - TotalExpense;
             ViewBag.Balance = Balance;
 
+            //Recent Transactions
+            ViewBag.RecentTransactions = await _context.Transactions
+                .Include(i => i.Category)
+                .OrderByDescending(j => j.TransactionDate)
+                .Take(5)
+                .ToListAsync();
+
             return View();
         }
     }
